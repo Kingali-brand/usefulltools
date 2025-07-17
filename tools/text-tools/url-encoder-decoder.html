@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encode and decode URLs for web development. Free online URL encoder and decoder tool with real-time conversion.">
+    <meta name="keywords" content="url encoder, url decoder, percent encoding, url encoding, web development tools">
+    <title>URL Encoder & Decoder - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-link text-primary mr-2"></i>URL Encoder & Decoder</h1>
+                    <p>Encode and decode URLs for web development. Convert special characters to percent-encoded format and vice versa.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- URL Encoder -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-arrow-up mr-2"></i>URL Encoder</h5>
+                                <small class="text-muted">Convert special characters to percent-encoded format</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="encodeInput">Enter URL or text to encode:</label>
+                                    <textarea class="form-control" id="encodeInput" rows="4" placeholder="https://example.com/search?q=hello world&category=news"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <button class="btn btn-primary" id="encodeBtn">
+                                        <i class="fas fa-arrow-up mr-2"></i>Encode
+                                    </button>
+                                    <button class="btn btn-secondary ml-2" id="clearEncodeBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear
+                                    </button>
+                                    <button class="btn btn-info ml-2" id="copyEncodedBtn">
+                                        <i class="fas fa-copy mr-2"></i>Copy Result
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="encodeOutput">Encoded result:</label>
+                                    <textarea class="form-control code-output" id="encodeOutput" rows="4" readonly placeholder="Encoded URL will appear here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- URL Decoder -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-arrow-down mr-2"></i>URL Decoder</h5>
+                                <small class="text-muted">Convert percent-encoded characters back to normal format</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="decodeInput">Enter URL or text to decode:</label>
+                                    <textarea class="form-control" id="decodeInput" rows="4" placeholder="https%3A//example.com/search%3Fq%3Dhello%20world%26category%3Dnews"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <button class="btn btn-success" id="decodeBtn">
+                                        <i class="fas fa-arrow-down mr-2"></i>Decode
+                                    </button>
+                                    <button class="btn btn-secondary ml-2" id="clearDecodeBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear
+                                    </button>
+                                    <button class="btn btn-info ml-2" id="copyDecodedBtn">
+                                        <i class="fas fa-copy mr-2"></i>Copy Result
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="decodeOutput">Decoded result:</label>
+                                    <textarea class="form-control code-output" id="decodeOutput" rows="4" readonly placeholder="Decoded URL will appear here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Batch Processing -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-list mr-2"></i>Batch Processing</h5>
+                                <small class="text-muted">Process multiple URLs at once (one per line)</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="batchInput">Enter multiple URLs (one per line):</label>
+                                    <textarea class="form-control" id="batchInput" rows="6" placeholder="https://example.com/page 1&#10;https://example.com/page 2&#10;https://example.com/page 3"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <button class="btn btn-primary" id="batchEncodeBtn">
+                                        <i class="fas fa-arrow-up mr-2"></i>Encode All
+                                    </button>
+                                    <button class="btn btn-success ml-2" id="batchDecodeBtn">
+                                        <i class="fas fa-arrow-down mr-2"></i>Decode All
+                                    </button>
+                                    <button class="btn btn-secondary ml-2" id="clearBatchBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear
+                                    </button>
+                                    <button class="btn btn-info ml-2" id="copyBatchBtn">
+                                        <i class="fas fa-copy mr-2"></i>Copy Results
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="batchOutput">Batch results:</label>
+                                    <textarea class="form-control code-output" id="batchOutput" rows="6" readonly placeholder="Batch processing results will appear here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Common URL Characters -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-table mr-2"></i>Common URL Encoding Reference</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Character</th>
+                                                <th>Encoded</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>(space)</td><td>%20</td><td>Space character</td></tr>
+                                            <tr><td>!</td><td>%21</td><td>Exclamation mark</td></tr>
+                                            <tr><td>"</td><td>%22</td><td>Quotation mark</td></tr>
+                                            <tr><td>#</td><td>%23</td><td>Hash/pound sign</td></tr>
+                                            <tr><td>$</td><td>%24</td><td>Dollar sign</td></tr>
+                                            <tr><td>%</td><td>%25</td><td>Percent sign</td></tr>
+                                            <tr><td>&</td><td>%26</td><td>Ampersand</td></tr>
+                                            <tr><td>'</td><td>%27</td><td>Apostrophe</td></tr>
+                                            <tr><td>(</td><td>%28</td><td>Left parenthesis</td></tr>
+                                            <tr><td>)</td><td>%29</td><td>Right parenthesis</td></tr>
+                                            <tr><td>+</td><td>%2B</td><td>Plus sign</td></tr>
+                                            <tr><td>,</td><td>%2C</td><td>Comma</td></tr>
+                                            <tr><td>/</td><td>%2F</td><td>Forward slash</td></tr>
+                                            <tr><td>:</td><td>%3A</td><td>Colon</td></tr>
+                                            <tr><td>;</td><td>%3B</td><td>Semicolon</td></tr>
+                                            <tr><td>=</td><td>%3D</td><td>Equal sign</td></tr>
+                                            <tr><td>?</td><td>%3F</td><td>Question mark</td></tr>
+                                            <tr><td>@</td><td>%40</td><td>At symbol</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>What is URL Encoding?</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="small">URL encoding (also called percent encoding) converts special characters into a format that can be transmitted over the Internet.</p>
+                                <p class="small">Characters are replaced with a percent sign (%) followed by their hexadecimal ASCII code.</p>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>When to Use</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Query Parameters:</strong> When URLs contain spaces or special characters</li>
+                                    <li><strong>Form Data:</strong> When submitting forms with special characters</li>
+                                    <li><strong>API Calls:</strong> When passing data in URL parameters</li>
+                                    <li><strong>File Names:</strong> When URLs contain file names with spaces</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-code mr-2"></i>Programming Examples</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="small">
+                                    <p><strong>JavaScript:</strong></p>
+                                    <code>encodeURIComponent(text)<br>decodeURIComponent(text)</code>
+                                    
+                                    <p class="mt-3"><strong>PHP:</strong></p>
+                                    <code>urlencode($text)<br>urldecode($text)</code>
+                                    
+                                    <p class="mt-3"><strong>Python:</strong></p>
+                                    <code>urllib.parse.quote(text)<br>urllib.parse.unquote(text)</code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-exclamation-triangle mr-2"></i>Important Notes</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Only encode the query string and path parts, not the entire URL</li>
+                                    <li>Don't double-encode already encoded URLs</li>
+                                    <li>Some characters like A-Z, a-z, 0-9, -, _, ., ~ don't need encoding</li>
+                                    <li>Always validate URLs after encoding/decoding</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        // Elements
+        const encodeInput = document.getElementById('encodeInput');
+        const encodeOutput = document.getElementById('encodeOutput');
+        const decodeInput = document.getElementById('decodeInput');
+        const decodeOutput = document.getElementById('decodeOutput');
+        const batchInput = document.getElementById('batchInput');
+        const batchOutput = document.getElementById('batchOutput');
+
+        // Encode function
+        function encodeURL(text) {
+            try {
+                return encodeURIComponent(text);
+            } catch (error) {
+                return 'Error: Invalid input for encoding';
+            }
+        }
+
+        // Decode function
+        function decodeURL(text) {
+            try {
+                return decodeURIComponent(text);
+            } catch (error) {
+                return 'Error: Invalid input for decoding';
+            }
+        }
+
+        // Single URL encoding
+        document.getElementById('encodeBtn').addEventListener('click', function() {
+            const input = encodeInput.value;
+            if (!input.trim()) {
+                alert('Please enter a URL or text to encode.');
+                return;
+            }
+            encodeOutput.value = encodeURL(input);
+        });
+
+        // Single URL decoding
+        document.getElementById('decodeBtn').addEventListener('click', function() {
+            const input = decodeInput.value;
+            if (!input.trim()) {
+                alert('Please enter a URL or text to decode.');
+                return;
+            }
+            decodeOutput.value = decodeURL(input);
+        });
+
+        // Batch encoding
+        document.getElementById('batchEncodeBtn').addEventListener('click', function() {
+            const input = batchInput.value;
+            if (!input.trim()) {
+                alert('Please enter URLs to encode (one per line).');
+                return;
+            }
+            
+            const lines = input.split('\n').filter(line => line.trim() !== '');
+            const results = lines.map(line => encodeURL(line.trim()));
+            batchOutput.value = results.join('\n');
+        });
+
+        // Batch decoding
+        document.getElementById('batchDecodeBtn').addEventListener('click', function() {
+            const input = batchInput.value;
+            if (!input.trim()) {
+                alert('Please enter URLs to decode (one per line).');
+                return;
+            }
+            
+            const lines = input.split('\n').filter(line => line.trim() !== '');
+            const results = lines.map(line => decodeURL(line.trim()));
+            batchOutput.value = results.join('\n');
+        });
+
+        // Clear functions
+        document.getElementById('clearEncodeBtn').addEventListener('click', function() {
+            encodeInput.value = '';
+            encodeOutput.value = '';
+        });
+
+        document.getElementById('clearDecodeBtn').addEventListener('click', function() {
+            decodeInput.value = '';
+            decodeOutput.value = '';
+        });
+
+        document.getElementById('clearBatchBtn').addEventListener('click', function() {
+            batchInput.value = '';
+            batchOutput.value = '';
+        });
+
+        // Copy functions
+        function copyToClipboard(text, button) {
+            if (!text) {
+                alert('No content to copy.');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+                button.classList.add('btn-success');
+                button.classList.remove('btn-info');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-info');
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy to clipboard. Please select and copy manually.');
+            });
+        }
+
+        document.getElementById('copyEncodedBtn').addEventListener('click', function() {
+            copyToClipboard(encodeOutput.value, this);
+        });
+
+        document.getElementById('copyDecodedBtn').addEventListener('click', function() {
+            copyToClipboard(decodeOutput.value, this);
+        });
+
+        document.getElementById('copyBatchBtn').addEventListener('click', function() {
+            copyToClipboard(batchOutput.value, this);
+        });
+
+        // Real-time encoding/decoding
+        encodeInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                encodeOutput.value = encodeURL(this.value);
+            } else {
+                encodeOutput.value = '';
+            }
+        });
+
+        decodeInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                decodeOutput.value = decodeURL(this.value);
+            } else {
+                decodeOutput.value = '';
+            }
+        });
+
+        // Enter key support
+        encodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                document.getElementById('encodeBtn').click();
+            }
+        });
+
+        decodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                document.getElementById('decodeBtn').click();
+            }
+        });
+
+        // Sample data for testing
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add sample button functionality if needed
+            const sampleURL = 'https://example.com/search?q=hello world&category=news & events';
+            
+            // You can add sample buttons here if desired
+        });
+    </script>
+</body>
+</html>
+

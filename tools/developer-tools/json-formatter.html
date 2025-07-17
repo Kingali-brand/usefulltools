@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Format, validate, and beautify JSON data. Free online JSON formatter and validator tool with syntax highlighting.">
+    <meta name="keywords" content="json formatter, json validator, json beautifier, json minifier, json parser, developer tools">
+    <title>JSON Formatter - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <style>
+        .json-editor {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            min-height: 300px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .json-output {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            min-height: 300px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+        
+        .json-valid {
+            color: #28a745;
+        }
+        
+        .json-invalid {
+            color: #dc3545;
+        }
+        
+        .json-key {
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        .json-string {
+            color: #009900;
+        }
+        
+        .json-number {
+            color: #ff6600;
+        }
+        
+        .json-boolean {
+            color: #cc0066;
+        }
+        
+        .json-null {
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-code text-primary mr-2"></i>JSON Formatter</h1>
+                    <p>Format, validate, and beautify JSON data with syntax highlighting and error detection.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Input Section -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-edit mr-2"></i>JSON Input</h5>
+                                <div>
+                                    <button class="btn btn-sm btn-secondary" id="clearBtn">
+                                        <i class="fas fa-trash mr-1"></i>Clear
+                                    </button>
+                                    <button class="btn btn-sm btn-info" id="sampleBtn">
+                                        <i class="fas fa-file-alt mr-1"></i>Sample
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control json-editor" id="jsonInput" rows="15" placeholder="Paste your JSON here..."></textarea>
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" id="formatBtn">
+                                        <i class="fas fa-magic mr-2"></i>Format & Validate
+                                    </button>
+                                    <button class="btn btn-success" id="minifyBtn">
+                                        <i class="fas fa-compress mr-2"></i>Minify
+                                    </button>
+                                    <button class="btn btn-info" id="copyBtn">
+                                        <i class="fas fa-copy mr-2"></i>Copy Result
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output Section -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-check-circle mr-2"></i>Formatted JSON</h5>
+                                <div id="validationStatus" class="mt-2"></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="json-output" id="jsonOutput">Formatted JSON will appear here...</div>
+                            </div>
+                        </div>
+
+                        <!-- JSON Statistics -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-bar mr-2"></i>JSON Statistics</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <div class="card bg-primary text-white">
+                                            <div class="card-body text-center py-2">
+                                                <h6 id="charCount">0</h6>
+                                                <small>Characters</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <div class="card bg-success text-white">
+                                            <div class="card-body text-center py-2">
+                                                <h6 id="lineCount">0</h6>
+                                                <small>Lines</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <div class="card bg-info text-white">
+                                            <div class="card-body text-center py-2">
+                                                <h6 id="objectCount">0</h6>
+                                                <small>Objects</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <div class="card bg-warning text-white">
+                                            <div class="card-body text-center py-2">
+                                                <h6 id="arrayCount">0</h6>
+                                                <small>Arrays</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>How to Use</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol class="small">
+                                    <li>Paste your JSON data in the input area</li>
+                                    <li>Click "Format & Validate" to beautify and check for errors</li>
+                                    <li>Use "Minify" to compress JSON for production</li>
+                                    <li>Copy the formatted result using "Copy Result"</li>
+                                    <li>View statistics and validation status below</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>Features</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Validation:</strong> Checks for JSON syntax errors</li>
+                                    <li><strong>Formatting:</strong> Beautifies JSON with proper indentation</li>
+                                    <li><strong>Minification:</strong> Removes whitespace for smaller size</li>
+                                    <li><strong>Statistics:</strong> Shows character, line, and structure counts</li>
+                                    <li><strong>Syntax Highlighting:</strong> Color-coded JSON elements</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-exclamation-triangle mr-2"></i>Common Errors</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Missing quotes around keys</li>
+                                    <li>Trailing commas</li>
+                                    <li>Single quotes instead of double quotes</li>
+                                    <li>Unescaped special characters</li>
+                                    <li>Missing closing brackets or braces</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        const jsonInput = document.getElementById('jsonInput');
+        const jsonOutput = document.getElementById('jsonOutput');
+        const validationStatus = document.getElementById('validationStatus');
+        const formatBtn = document.getElementById('formatBtn');
+        const minifyBtn = document.getElementById('minifyBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const sampleBtn = document.getElementById('sampleBtn');
+
+        // Sample JSON for demo
+        const sampleJson = `{
+  "name": "John Doe",
+  "age": 30,
+  "isActive": true,
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "zipCode": "10001"
+  },
+  "hobbies": ["reading", "swimming", "coding"],
+  "spouse": null,
+  "children": [
+    {
+      "name": "Jane Doe",
+      "age": 8
+    },
+    {
+      "name": "Bob Doe",
+      "age": 5
+    }
+  ]
+}`;
+
+        // Event listeners
+        formatBtn.addEventListener('click', formatJson);
+        minifyBtn.addEventListener('click', minifyJson);
+        copyBtn.addEventListener('click', copyResult);
+        clearBtn.addEventListener('click', clearInput);
+        sampleBtn.addEventListener('click', loadSample);
+
+        function formatJson() {
+            const input = jsonInput.value.trim();
+            
+            if (!input) {
+                showValidationStatus('Please enter some JSON data.', false);
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(input);
+                const formatted = JSON.stringify(parsed, null, 2);
+                jsonOutput.innerHTML = syntaxHighlight(formatted);
+                showValidationStatus('✓ Valid JSON', true);
+                updateStatistics(formatted, parsed);
+            } catch (error) {
+                jsonOutput.textContent = `Error: ${error.message}`;
+                jsonOutput.className = 'json-output json-invalid';
+                showValidationStatus(`✗ Invalid JSON: ${error.message}`, false);
+                updateStatistics('', null);
+            }
+        }
+
+        function minifyJson() {
+            const input = jsonInput.value.trim();
+            
+            if (!input) {
+                showValidationStatus('Please enter some JSON data.', false);
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(input);
+                const minified = JSON.stringify(parsed);
+                jsonOutput.textContent = minified;
+                jsonOutput.className = 'json-output';
+                showValidationStatus('✓ Valid JSON (Minified)', true);
+                updateStatistics(minified, parsed);
+            } catch (error) {
+                jsonOutput.textContent = `Error: ${error.message}`;
+                jsonOutput.className = 'json-output json-invalid';
+                showValidationStatus(`✗ Invalid JSON: ${error.message}`, false);
+                updateStatistics('', null);
+            }
+        }
+
+        function copyResult() {
+            const output = jsonOutput.textContent;
+            if (!output || output === 'Formatted JSON will appear here...') {
+                alert('No formatted JSON to copy. Please format some JSON first.');
+                return;
+            }
+
+            navigator.clipboard.writeText(output).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+                copyBtn.classList.add('btn-success');
+                copyBtn.classList.remove('btn-info');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('btn-success');
+                    copyBtn.classList.add('btn-info');
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy to clipboard. Please select and copy manually.');
+            });
+        }
+
+        function clearInput() {
+            jsonInput.value = '';
+            jsonOutput.textContent = 'Formatted JSON will appear here...';
+            jsonOutput.className = 'json-output';
+            validationStatus.innerHTML = '';
+            updateStatistics('', null);
+        }
+
+        function loadSample() {
+            jsonInput.value = sampleJson;
+            formatJson();
+        }
+
+        function showValidationStatus(message, isValid) {
+            validationStatus.innerHTML = `
+                <div class="alert alert-${isValid ? 'success' : 'danger'} py-2 mb-0">
+                    ${message}
+                </div>
+            `;
+        }
+
+        function updateStatistics(jsonString, parsedJson) {
+            const charCount = jsonString.length;
+            const lineCount = jsonString.split('\n').length;
+            
+            let objectCount = 0;
+            let arrayCount = 0;
+            
+            if (parsedJson) {
+                const jsonStr = JSON.stringify(parsedJson);
+                objectCount = (jsonStr.match(/\{/g) || []).length;
+                arrayCount = (jsonStr.match(/\[/g) || []).length;
+            }
+            
+            document.getElementById('charCount').textContent = charCount.toLocaleString();
+            document.getElementById('lineCount').textContent = lineCount.toLocaleString();
+            document.getElementById('objectCount').textContent = objectCount.toLocaleString();
+            document.getElementById('arrayCount').textContent = arrayCount.toLocaleString();
+        }
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        // Auto-format on paste
+        jsonInput.addEventListener('paste', function() {
+            setTimeout(() => {
+                if (jsonInput.value.trim()) {
+                    formatJson();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+

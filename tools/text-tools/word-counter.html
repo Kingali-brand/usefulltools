@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Count words, characters, paragraphs, and sentences in your text. Free online word counter tool with real-time analysis.">
+    <meta name="keywords" content="word counter, character counter, text analysis, word count, free tool">
+    <title>Word Counter - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-font text-primary mr-2"></i>Word Counter</h1>
+                    <p>Count words, characters, paragraphs, and sentences in your text with real-time analysis.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Text Input Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-edit mr-2"></i>Enter Your Text</h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control" id="textInput" rows="15" placeholder="Type or paste your text here..."></textarea>
+                                <div class="mt-3">
+                                    <button class="btn btn-secondary btn-sm" id="clearBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear Text
+                                    </button>
+                                    <button class="btn btn-info btn-sm" id="sampleBtn">
+                                        <i class="fas fa-file-alt mr-2"></i>Load Sample Text
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Section -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-bar mr-2"></i>Text Statistics</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-primary text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-font fa-2x mb-2"></i>
+                                                <h4 id="wordCount">0</h4>
+                                                <p class="mb-0">Words</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-success text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-keyboard fa-2x mb-2"></i>
+                                                <h4 id="charCount">0</h4>
+                                                <p class="mb-0">Characters</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-info text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-space-shuttle fa-2x mb-2"></i>
+                                                <h4 id="charNoSpaceCount">0</h4>
+                                                <p class="mb-0">Chars (no spaces)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-warning text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-paragraph fa-2x mb-2"></i>
+                                                <h4 id="paragraphCount">0</h4>
+                                                <p class="mb-0">Paragraphs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-danger text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-quote-right fa-2x mb-2"></i>
+                                                <h4 id="sentenceCount">0</h4>
+                                                <p class="mb-0">Sentences</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-secondary text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-clock fa-2x mb-2"></i>
+                                                <h4 id="readingTime">0</h4>
+                                                <p class="mb-0">Min Read</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-dark text-white">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-microphone fa-2x mb-2"></i>
+                                                <h4 id="speakingTime">0</h4>
+                                                <p class="mb-0">Min Speech</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-3">
+                                        <div class="card bg-purple text-white" style="background-color: #6f42c1 !important;">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-chart-line fa-2x mb-2"></i>
+                                                <h4 id="avgWordsPerSentence">0</h4>
+                                                <p class="mb-0">Avg Words/Sentence</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Analysis -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-analytics mr-2"></i>Detailed Analysis</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Most Common Words</h6>
+                                        <div id="commonWords" class="small text-muted">
+                                            Enter text to see analysis...
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Text Density</h6>
+                                        <div id="textDensity" class="small text-muted">
+                                            Enter text to see analysis...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>How to Use</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol class="small">
+                                    <li>Type or paste your text in the text area</li>
+                                    <li>See real-time statistics update automatically</li>
+                                    <li>View detailed analysis below</li>
+                                    <li>Use "Clear Text" to start over</li>
+                                    <li>Try "Sample Text" for a demo</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>Tips</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Reading Time:</strong> Based on 200 words per minute</li>
+                                    <li><strong>Speaking Time:</strong> Based on 150 words per minute</li>
+                                    <li><strong>SEO:</strong> Aim for 300+ words for blog posts</li>
+                                    <li><strong>Social Media:</strong> Twitter: 280 chars, Facebook: 63,206 chars</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        const textInput = document.getElementById('textInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const sampleBtn = document.getElementById('sampleBtn');
+
+        // Sample text for demo
+        const sampleText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`;
+
+        // Real-time text analysis
+        textInput.addEventListener('input', analyzeText);
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            analyzeText();
+        });
+
+        // Sample text button
+        sampleBtn.addEventListener('click', () => {
+            textInput.value = sampleText;
+            analyzeText();
+        });
+
+        function analyzeText() {
+            const text = textInput.value;
+            
+            // Basic counts
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            const characters = text.length;
+            const charactersNoSpaces = text.replace(/\s/g, '').length;
+            const paragraphs = text.trim() === '' ? 0 : text.split(/\n\s*\n/).filter(p => p.trim() !== '').length;
+            const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim() !== '').length;
+            
+            // Time calculations
+            const readingTime = Math.ceil(words / 200); // 200 words per minute
+            const speakingTime = Math.ceil(words / 150); // 150 words per minute
+            
+            // Average words per sentence
+            const avgWordsPerSentence = sentences > 0 ? Math.round(words / sentences) : 0;
+            
+            // Update display
+            document.getElementById('wordCount').textContent = words.toLocaleString();
+            document.getElementById('charCount').textContent = characters.toLocaleString();
+            document.getElementById('charNoSpaceCount').textContent = charactersNoSpaces.toLocaleString();
+            document.getElementById('paragraphCount').textContent = paragraphs.toLocaleString();
+            document.getElementById('sentenceCount').textContent = sentences.toLocaleString();
+            document.getElementById('readingTime').textContent = readingTime;
+            document.getElementById('speakingTime').textContent = speakingTime;
+            document.getElementById('avgWordsPerSentence').textContent = avgWordsPerSentence;
+            
+            // Detailed analysis
+            analyzeCommonWords(text);
+            analyzeTextDensity(words, characters, sentences, paragraphs);
+        }
+
+        function analyzeCommonWords(text) {
+            const commonWordsDiv = document.getElementById('commonWords');
+            
+            if (text.trim() === '') {
+                commonWordsDiv.innerHTML = 'Enter text to see analysis...';
+                return;
+            }
+            
+            // Get words and count frequency
+            const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+            const wordCount = {};
+            
+            // Common stop words to filter out
+            const stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them']);
+            
+            words.forEach(word => {
+                if (!stopWords.has(word) && word.length > 2) {
+                    wordCount[word] = (wordCount[word] || 0) + 1;
+                }
+            });
+            
+            // Sort by frequency and get top 5
+            const sortedWords = Object.entries(wordCount)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5);
+            
+            if (sortedWords.length === 0) {
+                commonWordsDiv.innerHTML = 'No significant words found...';
+                return;
+            }
+            
+            const wordList = sortedWords.map(([word, count]) => 
+                `<span class="badge badge-primary mr-1 mb-1">${word} (${count})</span>`
+            ).join('');
+            
+            commonWordsDiv.innerHTML = wordList;
+        }
+
+        function analyzeTextDensity(words, characters, sentences, paragraphs) {
+            const textDensityDiv = document.getElementById('textDensity');
+            
+            if (words === 0) {
+                textDensityDiv.innerHTML = 'Enter text to see analysis...';
+                return;
+            }
+            
+            const avgCharsPerWord = Math.round(characters / words);
+            const avgWordsPerParagraph = paragraphs > 0 ? Math.round(words / paragraphs) : 0;
+            const avgSentencesPerParagraph = paragraphs > 0 ? Math.round(sentences / paragraphs) : 0;
+            
+            textDensityDiv.innerHTML = `
+                <div class="small">
+                    <div>Avg chars per word: <strong>${avgCharsPerWord}</strong></div>
+                    <div>Avg words per paragraph: <strong>${avgWordsPerParagraph}</strong></div>
+                    <div>Avg sentences per paragraph: <strong>${avgSentencesPerParagraph}</strong></div>
+                </div>
+            `;
+        }
+
+        // Initialize
+        analyzeText();
+    </script>
+</body>
+</html>
+

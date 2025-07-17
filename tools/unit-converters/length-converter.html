@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert between different length units including meters, feet, inches, kilometers, miles, and more. Free online length converter tool.">
+    <meta name="keywords" content="length converter, unit converter, meters to feet, inches to cm, distance converter, measurement converter">
+    <title>Length Converter - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-ruler text-primary mr-2"></i>Length Converter</h1>
+                    <p>Convert between different length units including meters, feet, inches, kilometers, miles, and more.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Main Converter -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-exchange-alt mr-2"></i>Length Conversion</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="fromValue">From:</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="fromValue" placeholder="Enter value" step="any">
+                                                <div class="input-group-append">
+                                                    <select class="form-control" id="fromUnit">
+                                                        <option value="m">Meters (m)</option>
+                                                        <option value="km">Kilometers (km)</option>
+                                                        <option value="cm">Centimeters (cm)</option>
+                                                        <option value="mm">Millimeters (mm)</option>
+                                                        <option value="ft">Feet (ft)</option>
+                                                        <option value="in">Inches (in)</option>
+                                                        <option value="yd">Yards (yd)</option>
+                                                        <option value="mi">Miles (mi)</option>
+                                                        <option value="nmi">Nautical Miles (nmi)</option>
+                                                        <option value="μm">Micrometers (μm)</option>
+                                                        <option value="nm">Nanometers (nm)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <div>
+                                                <button class="btn btn-outline-primary" id="swapBtn" title="Swap units">
+                                                    <i class="fas fa-exchange-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="toValue">To:</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="toValue" placeholder="Result" readonly>
+                                                <div class="input-group-append">
+                                                    <select class="form-control" id="toUnit">
+                                                        <option value="m">Meters (m)</option>
+                                                        <option value="km">Kilometers (km)</option>
+                                                        <option value="cm">Centimeters (cm)</option>
+                                                        <option value="mm">Millimeters (mm)</option>
+                                                        <option value="ft" selected>Feet (ft)</option>
+                                                        <option value="in">Inches (in)</option>
+                                                        <option value="yd">Yards (yd)</option>
+                                                        <option value="mi">Miles (mi)</option>
+                                                        <option value="nmi">Nautical Miles (nmi)</option>
+                                                        <option value="μm">Micrometers (μm)</option>
+                                                        <option value="nm">Nanometers (nm)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-primary" id="convertBtn">
+                                        <i class="fas fa-calculator mr-2"></i>Convert
+                                    </button>
+                                    <button class="btn btn-secondary ml-2" id="clearBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Conversions -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-bolt mr-2"></i>Quick Conversions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Common Metric Conversions</h6>
+                                        <div class="list-group list-group-flush">
+                                            <div class="list-group-item d-flex justify-content-between">
+                                                <span>1 meter</span>
+                                                <span class="text-muted">100 cm</span>
+                                            </div>
+                                            <div class="list-group-item d-flex justify-content-between">
+                                                <span>1 kilometer</span>
+                                                <span class="text-muted">1,000 m</span>
+                                            </div>
+                                            <div class="list-group-item d-flex justify-content-between">
+                                                <span>1 centimeter</span>
+                                                <span class="text-muted">10 mm</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Common Imperial Conversions</h6>
+                                        <div class="list-group list-group-flush">
+                                            <div class="list-group-item d-flex justify-content-between">
+                                                <span>1 foot</span>
+                                                <span class="text-muted">12 inches</span>
+                                            </div>
+                                            <div class="list-group-item d-flex justify-content-between">
+                                                <span>1 yard</span>
+                                                <span class="text-muted">3 feet</span>
+                                            </div>
+                                            <div class="list-group-item d-flex justify-content-between">
+                                                <span>1 mile</span>
+                                                <span class="text-muted">5,280 feet</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversion Table -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-table mr-2"></i>All Conversions</h5>
+                                <small class="text-muted">Based on current input value</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Unit</th>
+                                                <th>Value</th>
+                                                <th>Symbol</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="conversionTable">
+                                            <tr><td colspan="3" class="text-center text-muted">Enter a value to see all conversions</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>How to Use</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol class="small">
+                                    <li>Enter a value in the "From" field</li>
+                                    <li>Select the unit you're converting from</li>
+                                    <li>Select the unit you want to convert to</li>
+                                    <li>Click "Convert" or press Enter</li>
+                                    <li>View the result and all other conversions below</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-ruler mr-2"></i>Unit Categories</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="small">
+                                    <p><strong>Metric System:</strong></p>
+                                    <ul class="mb-3">
+                                        <li>Kilometer (km) - 1,000 meters</li>
+                                        <li>Meter (m) - Base unit</li>
+                                        <li>Centimeter (cm) - 0.01 meters</li>
+                                        <li>Millimeter (mm) - 0.001 meters</li>
+                                    </ul>
+                                    
+                                    <p><strong>Imperial System:</strong></p>
+                                    <ul class="mb-3">
+                                        <li>Mile (mi) - 5,280 feet</li>
+                                        <li>Yard (yd) - 3 feet</li>
+                                        <li>Foot (ft) - 12 inches</li>
+                                        <li>Inch (in) - Base imperial unit</li>
+                                    </ul>
+                                    
+                                    <p><strong>Scientific:</strong></p>
+                                    <ul>
+                                        <li>Micrometer (μm) - 0.000001 meters</li>
+                                        <li>Nanometer (nm) - 0.000000001 meters</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>Quick Tips</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Use the swap button to quickly reverse conversion</li>
+                                    <li>Results update automatically as you type</li>
+                                    <li>All conversions are shown in the table below</li>
+                                    <li>Supports decimal values for precise measurements</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        // Conversion factors to meters
+        const conversionFactors = {
+            'm': 1,
+            'km': 1000,
+            'cm': 0.01,
+            'mm': 0.001,
+            'ft': 0.3048,
+            'in': 0.0254,
+            'yd': 0.9144,
+            'mi': 1609.344,
+            'nmi': 1852,
+            'μm': 0.000001,
+            'nm': 0.000000001
+        };
+
+        const unitNames = {
+            'm': 'Meters',
+            'km': 'Kilometers',
+            'cm': 'Centimeters',
+            'mm': 'Millimeters',
+            'ft': 'Feet',
+            'in': 'Inches',
+            'yd': 'Yards',
+            'mi': 'Miles',
+            'nmi': 'Nautical Miles',
+            'μm': 'Micrometers',
+            'nm': 'Nanometers'
+        };
+
+        const fromValue = document.getElementById('fromValue');
+        const toValue = document.getElementById('toValue');
+        const fromUnit = document.getElementById('fromUnit');
+        const toUnit = document.getElementById('toUnit');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const swapBtn = document.getElementById('swapBtn');
+        const conversionTable = document.getElementById('conversionTable');
+
+        function convert() {
+            const value = parseFloat(fromValue.value);
+            
+            if (isNaN(value) || value === '') {
+                toValue.value = '';
+                updateConversionTable(null);
+                return;
+            }
+
+            const fromFactor = conversionFactors[fromUnit.value];
+            const toFactor = conversionFactors[toUnit.value];
+            
+            // Convert to meters first, then to target unit
+            const meters = value * fromFactor;
+            const result = meters / toFactor;
+            
+            toValue.value = formatNumber(result);
+            updateConversionTable(meters);
+        }
+
+        function formatNumber(num) {
+            if (num === 0) return '0';
+            
+            // For very small numbers, use scientific notation
+            if (Math.abs(num) < 0.001 && Math.abs(num) > 0) {
+                return num.toExponential(6);
+            }
+            
+            // For very large numbers, use scientific notation
+            if (Math.abs(num) >= 1000000) {
+                return num.toExponential(6);
+            }
+            
+            // For normal numbers, use appropriate decimal places
+            if (Math.abs(num) >= 1) {
+                return num.toFixed(6).replace(/\.?0+$/, '');
+            } else {
+                return num.toFixed(8).replace(/\.?0+$/, '');
+            }
+        }
+
+        function updateConversionTable(meters) {
+            if (meters === null || isNaN(meters)) {
+                conversionTable.innerHTML = '<tr><td colspan="3" class="text-center text-muted">Enter a value to see all conversions</td></tr>';
+                return;
+            }
+
+            let tableHTML = '';
+            for (const [unit, factor] of Object.entries(conversionFactors)) {
+                const value = meters / factor;
+                tableHTML += `
+                    <tr>
+                        <td>${unitNames[unit]}</td>
+                        <td>${formatNumber(value)}</td>
+                        <td>${unit}</td>
+                    </tr>
+                `;
+            }
+            conversionTable.innerHTML = tableHTML;
+        }
+
+        function swapUnits() {
+            const fromUnitValue = fromUnit.value;
+            const toUnitValue = toUnit.value;
+            const fromValueValue = fromValue.value;
+            const toValueValue = toValue.value;
+            
+            fromUnit.value = toUnitValue;
+            toUnit.value = fromUnitValue;
+            fromValue.value = toValueValue;
+            
+            convert();
+        }
+
+        function clearAll() {
+            fromValue.value = '';
+            toValue.value = '';
+            updateConversionTable(null);
+        }
+
+        // Event listeners
+        fromValue.addEventListener('input', convert);
+        fromUnit.addEventListener('change', convert);
+        toUnit.addEventListener('change', convert);
+        convertBtn.addEventListener('click', convert);
+        clearBtn.addEventListener('click', clearAll);
+        swapBtn.addEventListener('click', swapUnits);
+
+        // Enter key support
+        fromValue.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                convert();
+            }
+        });
+
+        // Initialize
+        updateConversionTable(null);
+    </script>
+</body>
+</html>
+

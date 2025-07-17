@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced color picker tool with HEX, RGB, HSL, and HSV color formats. Generate color palettes and gradients.">
+    <meta name="keywords" content="color picker, hex color, rgb color, hsl color, color palette, color converter">
+    <title>Color Picker - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <style>
+        .color-preview {
+            width: 100%;
+            height: 150px;
+            border: 2px solid #dee2e6;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .color-preview:hover {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0,123,255,0.3);
+        }
+        
+        .color-input {
+            width: 60px;
+            height: 40px;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        .palette-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .palette-color:hover {
+            transform: scale(1.1);
+        }
+        
+        .gradient-preview {
+            height: 60px;
+            border-radius: 0.375rem;
+            border: 1px solid #dee2e6;
+        }
+        
+        .color-format-input {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-palette text-primary mr-2"></i>Color Picker</h1>
+                    <p>Advanced color picker with multiple format support, palette generation, and color conversion tools.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Main Color Picker -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-eye-dropper mr-2"></i>Color Picker</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="color-preview mb-3" id="colorPreview" style="background-color: #3498db;"></div>
+                                        <div class="text-center">
+                                            <input type="color" class="color-input" id="colorInput" value="#3498db">
+                                            <p class="small text-muted mt-2">Click to open color picker</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="hexInput">HEX:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control color-format-input" id="hexInput" value="#3498db">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" id="copyHex">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="rgbInput">RGB:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control color-format-input" id="rgbInput" value="rgb(52, 152, 219)">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" id="copyRgb">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="hslInput">HSL:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control color-format-input" id="hslInput" value="hsl(204, 70%, 53%)">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" id="copyHsl">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="hsvInput">HSV:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control color-format-input" id="hsvInput" value="hsv(204, 76%, 86%)">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" id="copyHsv">
+                                                        <i class="fas fa-copy"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Color Palette Generator -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-swatchbook mr-2"></i>Color Palette Generator</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="paletteType">Palette Type:</label>
+                                    <select class="form-control" id="paletteType">
+                                        <option value="monochromatic">Monochromatic</option>
+                                        <option value="analogous">Analogous</option>
+                                        <option value="complementary">Complementary</option>
+                                        <option value="triadic">Triadic</option>
+                                        <option value="tetradic">Tetradic</option>
+                                        <option value="split-complementary">Split Complementary</option>
+                                    </select>
+                                </div>
+                                
+                                <button class="btn btn-primary" id="generatePalette">
+                                    <i class="fas fa-magic mr-2"></i>Generate Palette
+                                </button>
+                                
+                                <div class="mt-4" id="paletteContainer">
+                                    <div class="d-flex flex-wrap" id="paletteColors">
+                                        <!-- Palette colors will be generated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gradient Generator -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-fill-drip mr-2"></i>Gradient Generator</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gradientColor1">Start Color:</label>
+                                            <input type="color" class="form-control color-input" id="gradientColor1" value="#3498db">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="gradientColor2">End Color:</label>
+                                            <input type="color" class="form-control color-input" id="gradientColor2" value="#e74c3c">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gradientDirection">Direction:</label>
+                                    <select class="form-control" id="gradientDirection">
+                                        <option value="to right">Left to Right</option>
+                                        <option value="to left">Right to Left</option>
+                                        <option value="to bottom">Top to Bottom</option>
+                                        <option value="to top">Bottom to Top</option>
+                                        <option value="45deg">Diagonal (45°)</option>
+                                        <option value="135deg">Diagonal (135°)</option>
+                                        <option value="radial">Radial</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="gradient-preview mb-3" id="gradientPreview"></div>
+                                
+                                <div class="form-group">
+                                    <label for="gradientCSS">CSS Code:</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control color-format-input" id="gradientCSS" rows="3" readonly></textarea>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="copyGradient">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Random Color Generator -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-random mr-2"></i>Random Color Generator</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-success btn-block" id="randomColor">
+                                            <i class="fas fa-dice mr-2"></i>Generate Random Color
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-info btn-block" id="randomPalette">
+                                            <i class="fas fa-dice mr-2"></i>Generate Random Palette
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3" id="randomColors">
+                                    <!-- Random colors will appear here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>Color Formats</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>HEX:</strong> Hexadecimal format (#RRGGBB)</li>
+                                    <li><strong>RGB:</strong> Red, Green, Blue values (0-255)</li>
+                                    <li><strong>HSL:</strong> Hue, Saturation, Lightness</li>
+                                    <li><strong>HSV:</strong> Hue, Saturation, Value</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-palette mr-2"></i>Palette Types</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Monochromatic:</strong> Different shades of the same color</li>
+                                    <li><strong>Analogous:</strong> Colors next to each other on the color wheel</li>
+                                    <li><strong>Complementary:</strong> Colors opposite on the color wheel</li>
+                                    <li><strong>Triadic:</strong> Three colors evenly spaced on the color wheel</li>
+                                    <li><strong>Tetradic:</strong> Four colors forming a rectangle on the color wheel</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>Tips</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Click on any color in the palette to use it as the main color</li>
+                                    <li>Use the copy buttons to quickly copy color codes</li>
+                                    <li>Gradients can be used in CSS for backgrounds</li>
+                                    <li>Consider color accessibility when choosing palettes</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        // Color conversion functions
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        function rgbToHsl(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+
+            if (max === min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                l: Math.round(l * 100)
+            };
+        }
+
+        function rgbToHsv(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, v = max;
+
+            const d = max - min;
+            s = max === 0 ? 0 : d / max;
+
+            if (max === min) {
+                h = 0;
+            } else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                v: Math.round(v * 100)
+            };
+        }
+
+        function hslToRgb(h, s, l) {
+            h /= 360; s /= 100; l /= 100;
+            const a = s * Math.min(l, 1 - l);
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                return l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+            };
+            return {
+                r: Math.round(f(0) * 255),
+                g: Math.round(f(8) * 255),
+                b: Math.round(f(4) * 255)
+            };
+        }
+
+        // Update all color formats
+        function updateColorFormats(hex) {
+            const rgb = hexToRgb(hex);
+            if (!rgb) return;
+
+            const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+            const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+
+            document.getElementById('colorPreview').style.backgroundColor = hex;
+            document.getElementById('colorInput').value = hex;
+            document.getElementById('hexInput').value = hex;
+            document.getElementById('rgbInput').value = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+            document.getElementById('hslInput').value = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+            document.getElementById('hsvInput').value = `hsv(${hsv.h}, ${hsv.s}%, ${hsv.v}%)`;
+        }
+
+        // Generate color palette
+        function generateColorPalette(baseColor, type) {
+            const rgb = hexToRgb(baseColor);
+            const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+            const colors = [baseColor];
+
+            switch (type) {
+                case 'monochromatic':
+                    for (let i = 1; i <= 4; i++) {
+                        const newL = Math.max(10, Math.min(90, hsl.l + (i * 15) - 30));
+                        const newRgb = hslToRgb(hsl.h, hsl.s, newL);
+                        colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+                    }
+                    break;
+                case 'analogous':
+                    for (let i = 1; i <= 4; i++) {
+                        const newH = (hsl.h + (i * 30)) % 360;
+                        const newRgb = hslToRgb(newH, hsl.s, hsl.l);
+                        colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+                    }
+                    break;
+                case 'complementary':
+                    const compH = (hsl.h + 180) % 360;
+                    const compRgb = hslToRgb(compH, hsl.s, hsl.l);
+                    colors.push(rgbToHex(compRgb.r, compRgb.g, compRgb.b));
+                    break;
+                case 'triadic':
+                    for (let i = 1; i <= 2; i++) {
+                        const newH = (hsl.h + (i * 120)) % 360;
+                        const newRgb = hslToRgb(newH, hsl.s, hsl.l);
+                        colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+                    }
+                    break;
+                case 'tetradic':
+                    for (let i = 1; i <= 3; i++) {
+                        const newH = (hsl.h + (i * 90)) % 360;
+                        const newRgb = hslToRgb(newH, hsl.s, hsl.l);
+                        colors.push(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+                    }
+                    break;
+                case 'split-complementary':
+                    const split1H = (hsl.h + 150) % 360;
+                    const split2H = (hsl.h + 210) % 360;
+                    const split1Rgb = hslToRgb(split1H, hsl.s, hsl.l);
+                    const split2Rgb = hslToRgb(split2H, hsl.s, hsl.l);
+                    colors.push(rgbToHex(split1Rgb.r, split1Rgb.g, split1Rgb.b));
+                    colors.push(rgbToHex(split2Rgb.r, split2Rgb.g, split2Rgb.b));
+                    break;
+            }
+
+            return colors;
+        }
+
+        // Display palette
+        function displayPalette(colors) {
+            const container = document.getElementById('paletteColors');
+            container.innerHTML = '';
+
+            colors.forEach(color => {
+                const colorDiv = document.createElement('div');
+                colorDiv.className = 'palette-color mr-2 mb-2';
+                colorDiv.style.backgroundColor = color;
+                colorDiv.title = color;
+                colorDiv.addEventListener('click', () => {
+                    updateColorFormats(color);
+                });
+                container.appendChild(colorDiv);
+            });
+        }
+
+        // Update gradient
+        function updateGradient() {
+            const color1 = document.getElementById('gradientColor1').value;
+            const color2 = document.getElementById('gradientColor2').value;
+            const direction = document.getElementById('gradientDirection').value;
+            
+            let gradientCSS;
+            if (direction === 'radial') {
+                gradientCSS = `radial-gradient(circle, ${color1}, ${color2})`;
+            } else {
+                gradientCSS = `linear-gradient(${direction}, ${color1}, ${color2})`;
+            }
+            
+            document.getElementById('gradientPreview').style.background = gradientCSS;
+            document.getElementById('gradientCSS').value = `background: ${gradientCSS};`;
+        }
+
+        // Generate random color
+        function generateRandomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = button.querySelector('i');
+                icon.className = 'fas fa-check';
+                setTimeout(() => {
+                    icon.className = 'fas fa-copy';
+                }, 1000);
+            });
+        }
+
+        // Event listeners
+        document.getElementById('colorInput').addEventListener('change', function() {
+            updateColorFormats(this.value);
+        });
+
+        document.getElementById('hexInput').addEventListener('input', function() {
+            if (/^#[0-9A-F]{6}$/i.test(this.value)) {
+                updateColorFormats(this.value);
+            }
+        });
+
+        document.getElementById('generatePalette').addEventListener('click', function() {
+            const baseColor = document.getElementById('colorInput').value;
+            const type = document.getElementById('paletteType').value;
+            const colors = generateColorPalette(baseColor, type);
+            displayPalette(colors);
+        });
+
+        document.getElementById('gradientColor1').addEventListener('change', updateGradient);
+        document.getElementById('gradientColor2').addEventListener('change', updateGradient);
+        document.getElementById('gradientDirection').addEventListener('change', updateGradient);
+
+        document.getElementById('randomColor').addEventListener('click', function() {
+            const randomColor = generateRandomColor();
+            updateColorFormats(randomColor);
+        });
+
+        document.getElementById('randomPalette').addEventListener('click', function() {
+            const randomColor = generateRandomColor();
+            updateColorFormats(randomColor);
+            const type = document.getElementById('paletteType').value;
+            const colors = generateColorPalette(randomColor, type);
+            displayPalette(colors);
+        });
+
+        // Copy buttons
+        document.getElementById('copyHex').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('hexInput').value, this);
+        });
+
+        document.getElementById('copyRgb').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('rgbInput').value, this);
+        });
+
+        document.getElementById('copyHsl').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('hslInput').value, this);
+        });
+
+        document.getElementById('copyHsv').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('hsvInput').value, this);
+        });
+
+        document.getElementById('copyGradient').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('gradientCSS').value, this);
+        });
+
+        // Initialize
+        updateColorFormats('#3498db');
+        updateGradient();
+        const initialColors = generateColorPalette('#3498db', 'monochromatic');
+        displayPalette(initialColors);
+    </script>
+</body>
+</html>
+

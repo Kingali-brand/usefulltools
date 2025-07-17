@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate QR codes for URLs, text, WiFi, contact info, and more. Free online QR code generator with customization options.">
+    <meta name="keywords" content="qr code generator, qr code maker, qr code creator, free qr code, barcode generator">
+    <title>QR Code Generator - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-qrcode text-primary mr-2"></i>QR Code Generator</h1>
+                    <p>Generate QR codes for URLs, text, WiFi credentials, contact information, and more with customization options.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- QR Code Type Selection -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-list mr-2"></i>QR Code Type</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-primary btn-block qr-type-btn active" data-type="text">
+                                            <i class="fas fa-font"></i><br>Text
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-primary btn-block qr-type-btn" data-type="url">
+                                            <i class="fas fa-link"></i><br>URL
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-primary btn-block qr-type-btn" data-type="wifi">
+                                            <i class="fas fa-wifi"></i><br>WiFi
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-primary btn-block qr-type-btn" data-type="contact">
+                                            <i class="fas fa-address-card"></i><br>Contact
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Forms -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-edit mr-2"></i>Content</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Text Input -->
+                                <div id="textForm" class="qr-form">
+                                    <div class="form-group">
+                                        <label for="textInput">Text Content:</label>
+                                        <textarea class="form-control" id="textInput" rows="4" placeholder="Enter your text here..."></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- URL Input -->
+                                <div id="urlForm" class="qr-form" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="urlInput">Website URL:</label>
+                                        <input type="url" class="form-control" id="urlInput" placeholder="https://example.com">
+                                    </div>
+                                </div>
+
+                                <!-- WiFi Input -->
+                                <div id="wifiForm" class="qr-form" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="wifiSSID">Network Name (SSID):</label>
+                                        <input type="text" class="form-control" id="wifiSSID" placeholder="MyWiFiNetwork">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wifiPassword">Password:</label>
+                                        <input type="text" class="form-control" id="wifiPassword" placeholder="password123">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wifiSecurity">Security Type:</label>
+                                        <select class="form-control" id="wifiSecurity">
+                                            <option value="WPA">WPA/WPA2</option>
+                                            <option value="WEP">WEP</option>
+                                            <option value="nopass">No Password</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Input -->
+                                <div id="contactForm" class="qr-form" style="display: none;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="contactName">Full Name:</label>
+                                                <input type="text" class="form-control" id="contactName" placeholder="John Doe">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="contactPhone">Phone:</label>
+                                                <input type="tel" class="form-control" id="contactPhone" placeholder="+1234567890">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactEmail">Email:</label>
+                                        <input type="email" class="form-control" id="contactEmail" placeholder="john@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactOrg">Organization:</label>
+                                        <input type="text" class="form-control" id="contactOrg" placeholder="Company Name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customization Options -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-palette mr-2"></i>Customization</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="qrSize">Size:</label>
+                                            <select class="form-control" id="qrSize">
+                                                <option value="200">200x200</option>
+                                                <option value="300" selected>300x300</option>
+                                                <option value="400">400x400</option>
+                                                <option value="500">500x500</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="qrColor">Foreground Color:</label>
+                                            <input type="color" class="form-control" id="qrColor" value="#000000">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="qrBgColor">Background Color:</label>
+                                            <input type="color" class="form-control" id="qrBgColor" value="#ffffff">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success btn-lg" id="generateBtn">
+                                    <i class="fas fa-magic mr-2"></i>Generate QR Code
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- QR Code Result -->
+                        <div class="card" id="resultSection" style="display: none;">
+                            <div class="card-header">
+                                <h5><i class="fas fa-check-circle text-success mr-2"></i>Your QR Code</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <canvas id="qrCanvas" class="mb-3"></canvas>
+                                <div>
+                                    <button class="btn btn-primary" id="downloadBtn">
+                                        <i class="fas fa-download mr-2"></i>Download PNG
+                                    </button>
+                                    <button class="btn btn-info" id="copyImageBtn">
+                                        <i class="fas fa-copy mr-2"></i>Copy Image
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>How to Use</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol class="small">
+                                    <li>Select the type of QR code you want to create</li>
+                                    <li>Fill in the required information</li>
+                                    <li>Customize the appearance (optional)</li>
+                                    <li>Click "Generate QR Code"</li>
+                                    <li>Download or copy your QR code</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>QR Code Types</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Text:</strong> Plain text content</li>
+                                    <li><strong>URL:</strong> Website links</li>
+                                    <li><strong>WiFi:</strong> Network credentials for easy connection</li>
+                                    <li><strong>Contact:</strong> vCard format for contact information</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-mobile-alt mr-2"></i>Scanning Tips</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Use your phone's camera app</li>
+                                    <li>Most smartphones have built-in QR scanners</li>
+                                    <li>Ensure good lighting when scanning</li>
+                                    <li>Hold steady and at appropriate distance</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        let currentType = 'text';
+        
+        // QR Type buttons
+        document.querySelectorAll('.qr-type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.qr-type-btn').forEach(b => {
+                    b.classList.remove('active', 'btn-primary');
+                    b.classList.add('btn-outline-primary');
+                });
+                
+                // Add active class to clicked button
+                this.classList.remove('btn-outline-primary');
+                this.classList.add('active', 'btn-primary');
+                
+                // Hide all forms
+                document.querySelectorAll('.qr-form').forEach(form => {
+                    form.style.display = 'none';
+                });
+                
+                // Show selected form
+                currentType = this.dataset.type;
+                document.getElementById(currentType + 'Form').style.display = 'block';
+            });
+        });
+
+        // Generate QR Code
+        document.getElementById('generateBtn').addEventListener('click', generateQRCode);
+
+        function generateQRCode() {
+            let content = '';
+            
+            // Get content based on type
+            switch(currentType) {
+                case 'text':
+                    content = document.getElementById('textInput').value.trim();
+                    break;
+                case 'url':
+                    content = document.getElementById('urlInput').value.trim();
+                    break;
+                case 'wifi':
+                    const ssid = document.getElementById('wifiSSID').value.trim();
+                    const password = document.getElementById('wifiPassword').value.trim();
+                    const security = document.getElementById('wifiSecurity').value;
+                    if (ssid) {
+                        content = `WIFI:T:${security};S:${ssid};P:${password};;`;
+                    }
+                    break;
+                case 'contact':
+                    const name = document.getElementById('contactName').value.trim();
+                    const phone = document.getElementById('contactPhone').value.trim();
+                    const email = document.getElementById('contactEmail').value.trim();
+                    const org = document.getElementById('contactOrg').value.trim();
+                    if (name || phone || email) {
+                        content = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nORG:${org}\nEND:VCARD`;
+                    }
+                    break;
+            }
+            
+            if (!content) {
+                alert('Please enter the required information.');
+                return;
+            }
+            
+            // Get customization options
+            const size = parseInt(document.getElementById('qrSize').value);
+            const color = document.getElementById('qrColor').value;
+            const bgColor = document.getElementById('qrBgColor').value;
+            
+            // Generate QR code
+            const canvas = document.getElementById('qrCanvas');
+            QRCode.toCanvas(canvas, content, {
+                width: size,
+                height: size,
+                color: {
+                    dark: color,
+                    light: bgColor
+                },
+                margin: 2
+            }, function (error) {
+                if (error) {
+                    alert('Error generating QR code: ' + error);
+                } else {
+                    document.getElementById('resultSection').style.display = 'block';
+                    canvas.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        // Download QR Code
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const canvas = document.getElementById('qrCanvas');
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+
+        // Copy Image to Clipboard
+        document.getElementById('copyImageBtn').addEventListener('click', function() {
+            const canvas = document.getElementById('qrCanvas');
+            canvas.toBlob(function(blob) {
+                const item = new ClipboardItem({ 'image/png': blob });
+                navigator.clipboard.write([item]).then(function() {
+                    const btn = document.getElementById('copyImageBtn');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+                    btn.classList.add('btn-success');
+                    btn.classList.remove('btn-info');
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.remove('btn-success');
+                        btn.classList.add('btn-info');
+                    }, 2000);
+                }).catch(function() {
+                    alert('Failed to copy image to clipboard. Please use the download button instead.');
+                });
+            });
+        });
+
+        // Auto-generate on input change
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.form-control')) {
+                // Auto-generate after a short delay
+                clearTimeout(window.qrTimeout);
+                window.qrTimeout = setTimeout(() => {
+                    if (hasValidInput()) {
+                        generateQRCode();
+                    }
+                }, 1000);
+            }
+        });
+
+        function hasValidInput() {
+            switch(currentType) {
+                case 'text':
+                    return document.getElementById('textInput').value.trim() !== '';
+                case 'url':
+                    return document.getElementById('urlInput').value.trim() !== '';
+                case 'wifi':
+                    return document.getElementById('wifiSSID').value.trim() !== '';
+                case 'contact':
+                    return document.getElementById('contactName').value.trim() !== '' ||
+                           document.getElementById('contactPhone').value.trim() !== '' ||
+                           document.getElementById('contactEmail').value.trim() !== '';
+                default:
+                    return false;
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert any image format to JPG with customizable quality settings. Free online image to JPG converter tool.">
+    <meta name="keywords" content="image to jpg, convert image, jpg converter, jpeg converter, image converter, free tool">
+    <title>Image to JPG Converter - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-image text-primary mr-2"></i>Image to JPG Converter</h1>
+                    <p>Convert any image format to JPG/JPEG with customizable quality settings for optimal file size.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Upload Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-upload mr-2"></i>Upload Image</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="file-drop-zone" id="dropZone">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                                    <h5>Drag & Drop your image here</h5>
+                                    <p class="text-muted">or click to browse files</p>
+                                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                                    <button class="btn btn-primary" onclick="document.getElementById('imageInput').click()">
+                                        <i class="fas fa-folder-open mr-2"></i>Choose File
+                                    </button>
+                                </div>
+                                <small class="text-muted mt-2 d-block">Supported formats: PNG, GIF, BMP, WebP, TIFF, and more</small>
+                            </div>
+                        </div>
+
+                        <!-- Preview Section -->
+                        <div class="card mb-4" id="previewSection" style="display: none;">
+                            <div class="card-header">
+                                <h5><i class="fas fa-eye mr-2"></i>Preview</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <img id="previewImage" class="img-fluid rounded" style="max-height: 300px;">
+                                <div class="mt-3">
+                                    <p id="imageInfo" class="text-muted"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Convert Section -->
+                        <div class="card mb-4" id="convertSection" style="display: none;">
+                            <div class="card-header">
+                                <h5><i class="fas fa-cogs mr-2"></i>Convert Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="qualitySlider">Quality: <span id="qualityValue">85</span>%</label>
+                                    <input type="range" class="form-control-range" id="qualitySlider" min="10" max="100" value="85">
+                                    <small class="text-muted">Higher quality = larger file size, Lower quality = smaller file size</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="backgroundColorPicker">Background Color (for transparent images):</label>
+                                    <div class="input-group">
+                                        <input type="color" class="form-control" id="backgroundColorPicker" value="#ffffff">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">White</span>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">JPG doesn't support transparency, so transparent areas will be filled with this color</small>
+                                </div>
+                                <button class="btn btn-success btn-lg" id="convertBtn">
+                                    <i class="fas fa-magic mr-2"></i>Convert to JPG
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="results-section" id="resultsSection" style="display: none;">
+                            <h5><i class="fas fa-check-circle text-success mr-2"></i>Conversion Complete!</h5>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h6>Original Image</h6>
+                                            <p id="originalInfo" class="text-muted"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h6>Converted JPG</h6>
+                                            <p id="convertedInfo" class="text-muted"></p>
+                                            <a id="downloadBtn" class="btn btn-primary" download>
+                                                <i class="fas fa-download mr-2"></i>Download JPG
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>About JPG Format</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="small">JPG/JPEG is a lossy compression format that's ideal for:</p>
+                                <ul class="small">
+                                    <li>Photographs and complex images</li>
+                                    <li>Web images (smaller file sizes)</li>
+                                    <li>Social media uploads</li>
+                                    <li>Email attachments</li>
+                                </ul>
+                                <p class="small"><strong>Note:</strong> JPG doesn't support transparency.</p>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        let selectedFile = null;
+
+        // Initialize elements
+        const dropZone = document.getElementById('dropZone');
+        const imageInput = document.getElementById('imageInput');
+        const previewSection = document.getElementById('previewSection');
+        const convertSection = document.getElementById('convertSection');
+        const resultsSection = document.getElementById('resultsSection');
+        const qualitySlider = document.getElementById('qualitySlider');
+        const qualityValue = document.getElementById('qualityValue');
+
+        // Quality slider update
+        qualitySlider.addEventListener('input', () => {
+            qualityValue.textContent = qualitySlider.value;
+        });
+
+        // Drag and drop events
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+
+        dropZone.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please select a valid image file.');
+                return;
+            }
+
+            selectedFile = file;
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = e.target.result;
+                
+                // Show image info
+                const imageInfo = document.getElementById('imageInfo');
+                imageInfo.textContent = `File: ${file.name} | Size: ${formatFileSize(file.size)} | Type: ${file.type}`;
+                
+                previewSection.style.display = 'block';
+                convertSection.style.display = 'block';
+                resultsSection.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Convert button
+        document.getElementById('convertBtn').addEventListener('click', () => {
+            if (!selectedFile) return;
+
+            const convertBtn = document.getElementById('convertBtn');
+            convertBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Converting...';
+            convertBtn.disabled = true;
+
+            // Create canvas for conversion
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                // Fill background color for transparency
+                const backgroundColor = document.getElementById('backgroundColorPicker').value;
+                ctx.fillStyle = backgroundColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw image
+                ctx.drawImage(img, 0, 0);
+
+                // Convert to JPG with quality
+                const quality = qualitySlider.value / 100;
+                canvas.toBlob((blob) => {
+                    // Create download link
+                    const url = URL.createObjectURL(blob);
+                    const downloadBtn = document.getElementById('downloadBtn');
+                    downloadBtn.href = url;
+                    downloadBtn.download = selectedFile.name.replace(/\.[^/.]+$/, '') + '.jpg';
+
+                    // Show results
+                    document.getElementById('originalInfo').textContent = `${formatFileSize(selectedFile.size)} | ${selectedFile.type}`;
+                    document.getElementById('convertedInfo').textContent = `${formatFileSize(blob.size)} | image/jpeg | Quality: ${qualitySlider.value}%`;
+                    
+                    resultsSection.style.display = 'block';
+                    
+                    // Reset button
+                    convertBtn.innerHTML = '<i class="fas fa-magic mr-2"></i>Convert to JPG';
+                    convertBtn.disabled = false;
+                }, 'image/jpeg', quality);
+            };
+
+            img.src = URL.createObjectURL(selectedFile);
+        });
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
+

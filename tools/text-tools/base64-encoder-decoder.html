@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encode and decode Base64 text and files. Free online Base64 encoder and decoder tool with file support.">
+    <meta name="keywords" content="base64 encoder, base64 decoder, base64 converter, text encoder, file encoder">
+    <title>Base64 Encoder & Decoder - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <style>
+        .code-output {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            background-color: #f8f9fa;
+            word-break: break-all;
+        }
+        
+        .file-drop-zone {
+            border: 2px dashed #dee2e6;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-drop-zone:hover,
+        .file-drop-zone.dragover {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        
+        .file-info {
+            background-color: #e9ecef;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-code text-primary mr-2"></i>Base64 Encoder & Decoder</h1>
+                    <p>Encode and decode text and files to/from Base64 format. Supports both text input and file uploads.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Text Encoder/Decoder -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-font mr-2"></i>Text Encoder/Decoder</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Input Text -->
+                                <div class="form-group">
+                                    <label for="textInput">Plain Text:</label>
+                                    <textarea class="form-control" id="textInput" rows="6" placeholder="Enter your text here..."></textarea>
+                                    <small class="text-muted">Characters: <span id="inputCharCount">0</span></small>
+                                </div>
+                                
+                                <div class="text-center mb-3">
+                                    <button class="btn btn-primary" id="encodeTextBtn">
+                                        <i class="fas fa-arrow-down mr-2"></i>Encode to Base64
+                                    </button>
+                                    <button class="btn btn-success ml-2" id="decodeTextBtn">
+                                        <i class="fas fa-arrow-up mr-2"></i>Decode from Base64
+                                    </button>
+                                    <button class="btn btn-secondary ml-2" id="clearTextBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear
+                                    </button>
+                                </div>
+                                
+                                <!-- Output Text -->
+                                <div class="form-group">
+                                    <label for="textOutput">Base64 Output:</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control code-output" id="textOutput" rows="6" readonly placeholder="Encoded/decoded text will appear here..."></textarea>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="copyTextBtn" title="Copy to clipboard">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Characters: <span id="outputCharCount">0</span></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Encoder/Decoder -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-file mr-2"></i>File Encoder/Decoder</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- File Upload -->
+                                <div class="file-drop-zone" id="fileDropZone">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <h5>Drop files here or click to browse</h5>
+                                    <p class="text-muted">Supports all file types (max 10MB)</p>
+                                    <input type="file" id="fileInput" style="display: none;">
+                                </div>
+                                
+                                <div id="fileInfo" class="file-info" style="display: none;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong id="fileName">filename.txt</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                Size: <span id="fileSize">0 bytes</span> | 
+                                                Type: <span id="fileType">text/plain</span>
+                                            </small>
+                                        </div>
+                                        <button class="btn btn-sm btn-danger" id="removeFileBtn">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-primary" id="encodeFileBtn" disabled>
+                                        <i class="fas fa-arrow-down mr-2"></i>Encode File to Base64
+                                    </button>
+                                    <button class="btn btn-success ml-2" id="decodeFileBtn">
+                                        <i class="fas fa-arrow-up mr-2"></i>Decode Base64 to File
+                                    </button>
+                                </div>
+                                
+                                <!-- File Output -->
+                                <div class="form-group mt-3">
+                                    <label for="fileOutput">Base64 Output:</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control code-output" id="fileOutput" rows="8" readonly placeholder="File Base64 data will appear here..."></textarea>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="copyFileBtn" title="Copy to clipboard">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Size: <span id="base64Size">0 characters</span></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Batch Processing -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-list mr-2"></i>Batch Text Processing</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="batchInput">Multiple texts (one per line):</label>
+                                    <textarea class="form-control" id="batchInput" rows="6" placeholder="Line 1&#10;Line 2&#10;Line 3"></textarea>
+                                </div>
+                                
+                                <div class="text-center mb-3">
+                                    <button class="btn btn-primary" id="batchEncodeBtn">
+                                        <i class="fas fa-arrow-down mr-2"></i>Encode All
+                                    </button>
+                                    <button class="btn btn-success ml-2" id="batchDecodeBtn">
+                                        <i class="fas fa-arrow-up mr-2"></i>Decode All
+                                    </button>
+                                    <button class="btn btn-secondary ml-2" id="clearBatchBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="batchOutput">Batch Results:</label>
+                                    <div class="input-group">
+                                        <textarea class="form-control code-output" id="batchOutput" rows="6" readonly placeholder="Batch processing results will appear here..."></textarea>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" id="copyBatchBtn" title="Copy to clipboard">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>What is Base64?</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="small">Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's commonly used to encode data for transmission over media designed to deal with textual data.</p>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>Common Uses</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Email attachments:</strong> MIME encoding</li>
+                                    <li><strong>Data URLs:</strong> Embedding images in HTML/CSS</li>
+                                    <li><strong>API data:</strong> Transmitting binary data in JSON</li>
+                                    <li><strong>Configuration:</strong> Storing binary data in text files</li>
+                                    <li><strong>Web development:</strong> Encoding images and files</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-code mr-2"></i>Character Set</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="small">Base64 uses 64 characters:</p>
+                                <ul class="small">
+                                    <li><strong>A-Z:</strong> Uppercase letters (26)</li>
+                                    <li><strong>a-z:</strong> Lowercase letters (26)</li>
+                                    <li><strong>0-9:</strong> Digits (10)</li>
+                                    <li><strong>+, /:</strong> Special characters (2)</li>
+                                    <li><strong>=:</strong> Padding character</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-exclamation-triangle mr-2"></i>Important Notes</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Base64 increases data size by approximately 33%</li>
+                                    <li>Not suitable for large files due to memory limitations</li>
+                                    <li>Base64 is encoding, not encryption</li>
+                                    <li>All processing is done locally in your browser</li>
+                                    <li>Files are not uploaded to any server</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        let selectedFile = null;
+
+        // Character count updates
+        function updateCharCounts() {
+            document.getElementById('inputCharCount').textContent = document.getElementById('textInput').value.length;
+            document.getElementById('outputCharCount').textContent = document.getElementById('textOutput').value.length;
+            document.getElementById('base64Size').textContent = document.getElementById('fileOutput').value.length + ' characters';
+        }
+
+        // Text encoding/decoding
+        function encodeText() {
+            const input = document.getElementById('textInput').value;
+            if (!input) {
+                alert('Please enter some text to encode.');
+                return;
+            }
+            
+            try {
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                document.getElementById('textOutput').value = encoded;
+                updateCharCounts();
+            } catch (error) {
+                alert('Error encoding text: ' + error.message);
+            }
+        }
+
+        function decodeText() {
+            const input = document.getElementById('textInput').value;
+            if (!input) {
+                alert('Please enter Base64 text to decode.');
+                return;
+            }
+            
+            try {
+                const decoded = decodeURIComponent(escape(atob(input)));
+                document.getElementById('textOutput').value = decoded;
+                updateCharCounts();
+            } catch (error) {
+                alert('Error decoding text. Please ensure the input is valid Base64.');
+            }
+        }
+
+        // File handling
+        function handleFileSelect(file) {
+            if (file.size > 10 * 1024 * 1024) { // 10MB limit
+                alert('File size must be less than 10MB.');
+                return;
+            }
+            
+            selectedFile = file;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            document.getElementById('fileType').textContent = file.type || 'unknown';
+            document.getElementById('fileInfo').style.display = 'block';
+            document.getElementById('encodeFileBtn').disabled = false;
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 bytes';
+            const k = 1024;
+            const sizes = ['bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function encodeFile() {
+            if (!selectedFile) {
+                alert('Please select a file first.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result.split(',')[1]; // Remove data URL prefix
+                document.getElementById('fileOutput').value = base64;
+                updateCharCounts();
+            };
+            reader.onerror = function() {
+                alert('Error reading file.');
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+
+        function decodeFile() {
+            const base64Input = document.getElementById('fileOutput').value.trim();
+            if (!base64Input) {
+                alert('Please enter Base64 data to decode.');
+                return;
+            }
+            
+            try {
+                // Create a blob from base64 data
+                const byteCharacters = atob(base64Input);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray]);
+                
+                // Create download link
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'decoded_file';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                alert('Error decoding file. Please ensure the input is valid Base64.');
+            }
+        }
+
+        // Batch processing
+        function batchEncode() {
+            const input = document.getElementById('batchInput').value;
+            if (!input.trim()) {
+                alert('Please enter text lines to encode.');
+                return;
+            }
+            
+            const lines = input.split('\n').filter(line => line.trim() !== '');
+            const results = lines.map(line => {
+                try {
+                    return btoa(unescape(encodeURIComponent(line.trim())));
+                } catch (error) {
+                    return 'Error: ' + error.message;
+                }
+            });
+            
+            document.getElementById('batchOutput').value = results.join('\n');
+        }
+
+        function batchDecode() {
+            const input = document.getElementById('batchInput').value;
+            if (!input.trim()) {
+                alert('Please enter Base64 lines to decode.');
+                return;
+            }
+            
+            const lines = input.split('\n').filter(line => line.trim() !== '');
+            const results = lines.map(line => {
+                try {
+                    return decodeURIComponent(escape(atob(line.trim())));
+                } catch (error) {
+                    return 'Error: Invalid Base64';
+                }
+            });
+            
+            document.getElementById('batchOutput').value = results.join('\n');
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text, button) {
+            if (!text) {
+                alert('No content to copy.');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = button.querySelector('i');
+                const originalClass = icon.className;
+                icon.className = 'fas fa-check';
+                setTimeout(() => {
+                    icon.className = originalClass;
+                }, 1000);
+            }).catch(() => {
+                alert('Failed to copy to clipboard. Please select and copy manually.');
+            });
+        }
+
+        // Event listeners
+        document.getElementById('textInput').addEventListener('input', updateCharCounts);
+        document.getElementById('textOutput').addEventListener('input', updateCharCounts);
+        document.getElementById('fileOutput').addEventListener('input', updateCharCounts);
+
+        document.getElementById('encodeTextBtn').addEventListener('click', encodeText);
+        document.getElementById('decodeTextBtn').addEventListener('click', decodeText);
+        document.getElementById('clearTextBtn').addEventListener('click', function() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('textOutput').value = '';
+            updateCharCounts();
+        });
+
+        document.getElementById('encodeFileBtn').addEventListener('click', encodeFile);
+        document.getElementById('decodeFileBtn').addEventListener('click', decodeFile);
+        document.getElementById('removeFileBtn').addEventListener('click', function() {
+            selectedFile = null;
+            document.getElementById('fileInfo').style.display = 'none';
+            document.getElementById('encodeFileBtn').disabled = true;
+            document.getElementById('fileInput').value = '';
+        });
+
+        document.getElementById('batchEncodeBtn').addEventListener('click', batchEncode);
+        document.getElementById('batchDecodeBtn').addEventListener('click', batchDecode);
+        document.getElementById('clearBatchBtn').addEventListener('click', function() {
+            document.getElementById('batchInput').value = '';
+            document.getElementById('batchOutput').value = '';
+        });
+
+        // Copy buttons
+        document.getElementById('copyTextBtn').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('textOutput').value, this);
+        });
+
+        document.getElementById('copyFileBtn').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('fileOutput').value, this);
+        });
+
+        document.getElementById('copyBatchBtn').addEventListener('click', function() {
+            copyToClipboard(document.getElementById('batchOutput').value, this);
+        });
+
+        // File drop zone
+        const fileDropZone = document.getElementById('fileDropZone');
+        const fileInput = document.getElementById('fileInput');
+
+        fileDropZone.addEventListener('click', () => fileInput.click());
+
+        fileDropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        fileDropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+
+        fileDropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                handleFileSelect(this.files[0]);
+            }
+        });
+
+        // Real-time encoding/decoding
+        document.getElementById('textInput').addEventListener('input', function() {
+            if (this.value.trim()) {
+                // Auto-detect if input looks like Base64
+                if (/^[A-Za-z0-9+/]*={0,2}$/.test(this.value.trim())) {
+                    try {
+                        const decoded = decodeURIComponent(escape(atob(this.value.trim())));
+                        document.getElementById('textOutput').value = decoded;
+                    } catch (e) {
+                        // If decode fails, try encode
+                        try {
+                            const encoded = btoa(unescape(encodeURIComponent(this.value)));
+                            document.getElementById('textOutput').value = encoded;
+                        } catch (e2) {
+                            // Ignore errors during real-time processing
+                        }
+                    }
+                } else {
+                    // Looks like plain text, encode it
+                    try {
+                        const encoded = btoa(unescape(encodeURIComponent(this.value)));
+                        document.getElementById('textOutput').value = encoded;
+                    } catch (e) {
+                        // Ignore errors during real-time processing
+                    }
+                }
+                updateCharCounts();
+            } else {
+                document.getElementById('textOutput').value = '';
+                updateCharCounts();
+            }
+        });
+
+        // Initialize
+        updateCharCounts();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate percentages, percentage increase/decrease, and percentage of a number. Free online percentage calculator tool.">
+    <meta name="keywords" content="percentage calculator, percent calculator, percentage increase, percentage decrease, math calculator">
+    <title>Percentage Calculator - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-percentage text-primary mr-2"></i>Percentage Calculator</h1>
+                    <p>Calculate percentages, percentage increase/decrease, and percentage of a number with ease.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Calculator Tabs -->
+                        <div class="card">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="calculatorTabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">
+                                            <i class="fas fa-calculator mr-2"></i>Basic Percentage
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="increase-tab" data-toggle="tab" href="#increase" role="tab">
+                                            <i class="fas fa-arrow-up mr-2"></i>Percentage Change
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="of-number-tab" data-toggle="tab" href="#of-number" role="tab">
+                                            <i class="fas fa-hashtag mr-2"></i>Percentage of Number
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="calculatorTabsContent">
+                                    <!-- Basic Percentage Tab -->
+                                    <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                                        <h5>What percentage is X of Y?</h5>
+                                        <p class="text-muted">Calculate what percentage one number is of another.</p>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="basicX">Number (X):</label>
+                                                    <input type="number" class="form-control" id="basicX" placeholder="Enter first number" step="any">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="basicY">Total (Y):</label>
+                                                    <input type="number" class="form-control" id="basicY" placeholder="Enter total number" step="any">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <button class="btn btn-primary" onclick="calculateBasic()">
+                                            <i class="fas fa-calculator mr-2"></i>Calculate
+                                        </button>
+                                        
+                                        <div id="basicResult" class="results-section mt-3" style="display: none;">
+                                            <h6><i class="fas fa-check-circle text-success mr-2"></i>Result:</h6>
+                                            <div class="alert alert-success">
+                                                <h4 id="basicAnswer" class="mb-0"></h4>
+                                                <p id="basicExplanation" class="mb-0 mt-2"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Percentage Change Tab -->
+                                    <div class="tab-pane fade" id="increase" role="tabpanel">
+                                        <h5>Percentage Increase/Decrease</h5>
+                                        <p class="text-muted">Calculate the percentage change between two values.</p>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="oldValue">Original Value:</label>
+                                                    <input type="number" class="form-control" id="oldValue" placeholder="Enter original value" step="any">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="newValue">New Value:</label>
+                                                    <input type="number" class="form-control" id="newValue" placeholder="Enter new value" step="any">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <button class="btn btn-primary" onclick="calculateChange()">
+                                            <i class="fas fa-calculator mr-2"></i>Calculate
+                                        </button>
+                                        
+                                        <div id="changeResult" class="results-section mt-3" style="display: none;">
+                                            <h6><i class="fas fa-check-circle text-success mr-2"></i>Result:</h6>
+                                            <div class="alert alert-success">
+                                                <h4 id="changeAnswer" class="mb-0"></h4>
+                                                <p id="changeExplanation" class="mb-0 mt-2"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Percentage of Number Tab -->
+                                    <div class="tab-pane fade" id="of-number" role="tabpanel">
+                                        <h5>What is X% of Y?</h5>
+                                        <p class="text-muted">Calculate a specific percentage of a number.</p>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="percentage">Percentage (%):</label>
+                                                    <input type="number" class="form-control" id="percentage" placeholder="Enter percentage" step="any">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="ofNumber">Of Number:</label>
+                                                    <input type="number" class="form-control" id="ofNumber" placeholder="Enter number" step="any">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <button class="btn btn-primary" onclick="calculateOfNumber()">
+                                            <i class="fas fa-calculator mr-2"></i>Calculate
+                                        </button>
+                                        
+                                        <div id="ofNumberResult" class="results-section mt-3" style="display: none;">
+                                            <h6><i class="fas fa-check-circle text-success mr-2"></i>Result:</h6>
+                                            <div class="alert alert-success">
+                                                <h4 id="ofNumberAnswer" class="mb-0"></h4>
+                                                <p id="ofNumberExplanation" class="mb-0 mt-2"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Examples -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-lightbulb mr-2"></i>Quick Examples</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6>Basic Percentage</h6>
+                                        <p class="small">25 is what % of 100?<br><strong>Answer: 25%</strong></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Percentage Change</h6>
+                                        <p class="small">From 50 to 75<br><strong>Answer: +50% increase</strong></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6>Percentage of Number</h6>
+                                        <p class="small">20% of 150<br><strong>Answer: 30</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>How to Use</h6>
+                            </div>
+                            <div class="card-body">
+                                <ol class="small">
+                                    <li>Choose the type of calculation from the tabs</li>
+                                    <li>Enter the required numbers</li>
+                                    <li>Click "Calculate" to get the result</li>
+                                    <li>View the detailed explanation</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-formula mr-2"></i>Formulas</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="small">
+                                    <p><strong>Basic Percentage:</strong><br>
+                                    (X ÷ Y) × 100 = %</p>
+                                    
+                                    <p><strong>Percentage Change:</strong><br>
+                                    ((New - Old) ÷ Old) × 100 = %</p>
+                                    
+                                    <p><strong>Percentage of Number:</strong><br>
+                                    (% ÷ 100) × Number = Result</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        function calculateBasic() {
+            const x = parseFloat(document.getElementById('basicX').value);
+            const y = parseFloat(document.getElementById('basicY').value);
+            
+            if (isNaN(x) || isNaN(y) || y === 0) {
+                alert('Please enter valid numbers. The total cannot be zero.');
+                return;
+            }
+            
+            const percentage = (x / y) * 100;
+            
+            document.getElementById('basicAnswer').textContent = `${percentage.toFixed(2)}%`;
+            document.getElementById('basicExplanation').textContent = `${x} is ${percentage.toFixed(2)}% of ${y}`;
+            document.getElementById('basicResult').style.display = 'block';
+        }
+
+        function calculateChange() {
+            const oldValue = parseFloat(document.getElementById('oldValue').value);
+            const newValue = parseFloat(document.getElementById('newValue').value);
+            
+            if (isNaN(oldValue) || isNaN(newValue) || oldValue === 0) {
+                alert('Please enter valid numbers. The original value cannot be zero.');
+                return;
+            }
+            
+            const change = ((newValue - oldValue) / oldValue) * 100;
+            const isIncrease = change > 0;
+            const changeType = isIncrease ? 'increase' : 'decrease';
+            const changeIcon = isIncrease ? '↑' : '↓';
+            
+            document.getElementById('changeAnswer').textContent = `${changeIcon} ${Math.abs(change).toFixed(2)}% ${changeType}`;
+            document.getElementById('changeExplanation').textContent = `From ${oldValue} to ${newValue} is a ${Math.abs(change).toFixed(2)}% ${changeType}`;
+            document.getElementById('changeResult').style.display = 'block';
+        }
+
+        function calculateOfNumber() {
+            const percentage = parseFloat(document.getElementById('percentage').value);
+            const number = parseFloat(document.getElementById('ofNumber').value);
+            
+            if (isNaN(percentage) || isNaN(number)) {
+                alert('Please enter valid numbers.');
+                return;
+            }
+            
+            const result = (percentage / 100) * number;
+            
+            document.getElementById('ofNumberAnswer').textContent = result.toFixed(2);
+            document.getElementById('ofNumberExplanation').textContent = `${percentage}% of ${number} is ${result.toFixed(2)}`;
+            document.getElementById('ofNumberResult').style.display = 'block';
+        }
+
+        // Add Enter key support for all inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const activeTab = document.querySelector('.tab-pane.active');
+                        if (activeTab.id === 'basic') {
+                            calculateBasic();
+                        } else if (activeTab.id === 'increase') {
+                            calculateChange();
+                        } else if (activeTab.id === 'of-number') {
+                            calculateOfNumber();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

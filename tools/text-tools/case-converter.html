@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert text to uppercase, lowercase, title case, sentence case, and more. Free online text case converter tool.">
+    <meta name="keywords" content="case converter, text converter, uppercase, lowercase, title case, sentence case, text tools">
+    <title>Case Converter - MultiTools</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-font text-primary mr-2"></i>Case Converter</h1>
+                    <p>Convert text to uppercase, lowercase, title case, sentence case, and more formatting options.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Text Input Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-edit mr-2"></i>Enter Your Text</h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control" id="textInput" rows="8" placeholder="Type or paste your text here..."></textarea>
+                                <div class="mt-3">
+                                    <button class="btn btn-secondary btn-sm" id="clearBtn">
+                                        <i class="fas fa-trash mr-2"></i>Clear Text
+                                    </button>
+                                    <button class="btn btn-info btn-sm" id="sampleBtn">
+                                        <i class="fas fa-file-alt mr-2"></i>Load Sample Text
+                                    </button>
+                                    <span class="ml-3 text-muted small">
+                                        Characters: <span id="charCount">0</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversion Options -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-magic mr-2"></i>Conversion Options</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="upper">
+                                            <i class="fas fa-arrow-up mr-2"></i>UPPERCASE
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="lower">
+                                            <i class="fas fa-arrow-down mr-2"></i>lowercase
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="title">
+                                            <i class="fas fa-heading mr-2"></i>Title Case
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="sentence">
+                                            <i class="fas fa-quote-left mr-2"></i>Sentence case
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="camel">
+                                            <i class="fas fa-code mr-2"></i>camelCase
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="pascal">
+                                            <i class="fas fa-code mr-2"></i>PascalCase
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="snake">
+                                            <i class="fas fa-minus mr-2"></i>snake_case
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="kebab">
+                                            <i class="fas fa-minus mr-2"></i>kebab-case
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-3">
+                                        <button class="btn btn-outline-primary btn-block case-btn" data-case="alternating">
+                                            <i class="fas fa-exchange-alt mr-2"></i>aLtErNaTiNg
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output Section -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-check-circle mr-2"></i>Converted Text</h5>
+                                <button class="btn btn-sm btn-success" id="copyBtn">
+                                    <i class="fas fa-copy mr-2"></i>Copy Result
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control" id="outputText" rows="8" readonly placeholder="Converted text will appear here..."></textarea>
+                                <div class="mt-3">
+                                    <small class="text-muted">
+                                        Output Characters: <span id="outputCharCount">0</span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Tools -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-tools mr-2"></i>Additional Text Tools</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-secondary btn-block btn-sm" id="reverseBtn">
+                                            <i class="fas fa-undo mr-2"></i>Reverse Text
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-secondary btn-block btn-sm" id="removeSpacesBtn">
+                                            <i class="fas fa-compress mr-2"></i>Remove Spaces
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-secondary btn-block btn-sm" id="removeLineBreaksBtn">
+                                            <i class="fas fa-align-left mr-2"></i>Remove Line Breaks
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-secondary btn-block btn-sm" id="trimBtn">
+                                            <i class="fas fa-cut mr-2"></i>Trim Whitespace
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-secondary btn-block btn-sm" id="duplicateBtn">
+                                            <i class="fas fa-copy mr-2"></i>Remove Duplicates
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6 mb-2">
+                                        <button class="btn btn-outline-secondary btn-block btn-sm" id="sortBtn">
+                                            <i class="fas fa-sort mr-2"></i>Sort Lines
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6><i class="fas fa-info-circle mr-2"></i>Case Types</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>UPPERCASE:</strong> ALL LETTERS CAPITALIZED</li>
+                                    <li><strong>lowercase:</strong> all letters in small case</li>
+                                    <li><strong>Title Case:</strong> First Letter Of Each Word Capitalized</li>
+                                    <li><strong>Sentence case:</strong> First letter of each sentence capitalized</li>
+                                    <li><strong>camelCase:</strong> firstWordLowerRestCapitalized</li>
+                                    <li><strong>PascalCase:</strong> FirstLetterOfEachWordCapitalized</li>
+                                    <li><strong>snake_case:</strong> words_separated_by_underscores</li>
+                                    <li><strong>kebab-case:</strong> words-separated-by-hyphens</li>
+                                    <li><strong>aLtErNaTiNg:</strong> alternating upper and lower case</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-lightbulb mr-2"></i>Use Cases</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Programming:</strong> camelCase, PascalCase, snake_case</li>
+                                    <li><strong>URLs:</strong> kebab-case for SEO-friendly URLs</li>
+                                    <li><strong>Titles:</strong> Title Case for headings</li>
+                                    <li><strong>Constants:</strong> UPPERCASE for constants</li>
+                                    <li><strong>Sentences:</strong> Sentence case for normal text</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6><i class="fas fa-keyboard mr-2"></i>Keyboard Shortcuts</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li><strong>Ctrl+A:</strong> Select all text</li>
+                                    <li><strong>Ctrl+C:</strong> Copy text</li>
+                                    <li><strong>Ctrl+V:</strong> Paste text</li>
+                                    <li><strong>Ctrl+Z:</strong> Undo</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad Space -->
+                        <div class="ad-space mt-4">
+                            <h6>Advertisement</h6>
+                            <p class="text-muted small">Ad space for monetization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        const textInput = document.getElementById('textInput');
+        const outputText = document.getElementById('outputText');
+        const charCount = document.getElementById('charCount');
+        const outputCharCount = document.getElementById('outputCharCount');
+        const clearBtn = document.getElementById('clearBtn');
+        const sampleBtn = document.getElementById('sampleBtn');
+        const copyBtn = document.getElementById('copyBtn');
+
+        // Sample text
+        const sampleText = "hello world! this is a SAMPLE text for TESTING the case converter tool. It has Multiple Sentences and different FORMATTING.";
+
+        // Update character count
+        function updateCharCount() {
+            charCount.textContent = textInput.value.length;
+            outputCharCount.textContent = outputText.value.length;
+        }
+
+        // Case conversion functions
+        const caseConverters = {
+            upper: (text) => text.toUpperCase(),
+            lower: (text) => text.toLowerCase(),
+            title: (text) => text.replace(/\w\S*/g, (txt) => 
+                txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
+            sentence: (text) => text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, 
+                (c) => c.toUpperCase()),
+            camel: (text) => text.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => 
+                index === 0 ? word.toLowerCase() : word.toUpperCase()).replace(/\s+/g, ''),
+            pascal: (text) => text.replace(/(?:^\w|[A-Z]|\b\w)/g, 
+                (word) => word.toUpperCase()).replace(/\s+/g, ''),
+            snake: (text) => text.toLowerCase().replace(/\s+/g, '_'),
+            kebab: (text) => text.toLowerCase().replace(/\s+/g, '-'),
+            alternating: (text) => text.split('').map((char, index) => 
+                index % 2 === 0 ? char.toLowerCase() : char.toUpperCase()).join('')
+        };
+
+        // Event listeners
+        textInput.addEventListener('input', updateCharCount);
+
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            outputText.value = '';
+            updateCharCount();
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            textInput.value = sampleText;
+            updateCharCount();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (!outputText.value) {
+                alert('No converted text to copy. Please convert some text first.');
+                return;
+            }
+
+            outputText.select();
+            document.execCommand('copy');
+            
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
+            copyBtn.classList.add('btn-success');
+            copyBtn.classList.remove('btn-success');
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.classList.remove('btn-success');
+                copyBtn.classList.add('btn-success');
+            }, 2000);
+        });
+
+        // Case conversion buttons
+        document.querySelectorAll('.case-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const caseType = this.dataset.case;
+                const inputText = textInput.value;
+                
+                if (!inputText.trim()) {
+                    alert('Please enter some text to convert.');
+                    return;
+                }
+                
+                const convertedText = caseConverters[caseType](inputText);
+                outputText.value = convertedText;
+                updateCharCount();
+                
+                // Visual feedback
+                this.classList.add('btn-primary');
+                this.classList.remove('btn-outline-primary');
+                setTimeout(() => {
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-outline-primary');
+                }, 300);
+            });
+        });
+
+        // Additional tools
+        document.getElementById('reverseBtn').addEventListener('click', () => {
+            const inputText = textInput.value;
+            if (!inputText.trim()) {
+                alert('Please enter some text to reverse.');
+                return;
+            }
+            outputText.value = inputText.split('').reverse().join('');
+            updateCharCount();
+        });
+
+        document.getElementById('removeSpacesBtn').addEventListener('click', () => {
+            const inputText = textInput.value;
+            if (!inputText.trim()) {
+                alert('Please enter some text.');
+                return;
+            }
+            outputText.value = inputText.replace(/\s+/g, '');
+            updateCharCount();
+        });
+
+        document.getElementById('removeLineBreaksBtn').addEventListener('click', () => {
+            const inputText = textInput.value;
+            if (!inputText.trim()) {
+                alert('Please enter some text.');
+                return;
+            }
+            outputText.value = inputText.replace(/\n/g, ' ').replace(/\s+/g, ' ');
+            updateCharCount();
+        });
+
+        document.getElementById('trimBtn').addEventListener('click', () => {
+            const inputText = textInput.value;
+            if (!inputText.trim()) {
+                alert('Please enter some text.');
+                return;
+            }
+            outputText.value = inputText.trim().replace(/\s+/g, ' ');
+            updateCharCount();
+        });
+
+        document.getElementById('duplicateBtn').addEventListener('click', () => {
+            const inputText = textInput.value;
+            if (!inputText.trim()) {
+                alert('Please enter some text.');
+                return;
+            }
+            const lines = inputText.split('\n');
+            const uniqueLines = [...new Set(lines)];
+            outputText.value = uniqueLines.join('\n');
+            updateCharCount();
+        });
+
+        document.getElementById('sortBtn').addEventListener('click', () => {
+            const inputText = textInput.value;
+            if (!inputText.trim()) {
+                alert('Please enter some text.');
+                return;
+            }
+            const lines = inputText.split('\n');
+            const sortedLines = lines.sort();
+            outputText.value = sortedLines.join('\n');
+            updateCharCount();
+        });
+
+        // Initialize
+        updateCharCount();
+    </script>
+</body>
+</html>
+
