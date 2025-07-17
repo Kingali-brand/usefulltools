@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online tools for developers, designers, and everyday users. 100+ tools including calculators, converters, generators, and more.">
+    <meta name="keywords" content="online tools, free tools, calculator, converter, generator, developer tools, text tools, image tools">
+    <title>MultiTools - Free Online Tools for Everyone</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Free Online Tools for Everyone</h1>
+                    <p class="hero-subtitle">Discover 100+ powerful tools for developers, designers, students, and professionals. All tools are free, fast, and work directly in your browser.</p>
+                    <div class="hero-search">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" id="heroSearch" placeholder="Search tools...">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-stats mt-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3>15+</h3>
+                                    <p>Tools Available</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3>100%</h3>
+                                    <p>Free to Use</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3>0</h3>
+                                    <p>Registration Required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Browse All Tools</h2>
+                <p>Choose from our collection of carefully crafted tools</p>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter mb-4">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-primary active">
+                        <input type="radio" name="category" value="all" checked> All Tools
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="image"> Image Tools
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="text"> Text Tools
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="math"> Math & Calculators
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="unit"> Unit Converters
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="developer"> Developer Tools
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="security"> Security Tools
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="category" value="color"> Color Tools
+                    </label>
+                </div>
+            </div>
+
+            <!-- Tools Grid -->
+            <div class="row" id="toolsGrid">
+                <!-- Image Tools -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="image" data-tags="image converter png">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <h5 class="card-title">Image to PNG Converter</h5>
+                            <p class="card-text">Convert images to PNG format with quality control and transparency support.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-primary">Image</span>
+                                <span class="badge badge-secondary">Converter</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/image-tools/image-to-png.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="image" data-tags="image converter jpg jpeg">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-file-image"></i>
+                            </div>
+                            <h5 class="card-title">Image to JPG Converter</h5>
+                            <p class="card-text">Convert images to JPG format with quality settings and background color options.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-primary">Image</span>
+                                <span class="badge badge-secondary">Converter</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/image-tools/image-to-jpg.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="image" data-tags="qr code generator barcode">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <h5 class="card-title">QR Code Generator</h5>
+                            <p class="card-text">Generate QR codes for text, URLs, WiFi, and contact information with customization.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-primary">Image</span>
+                                <span class="badge badge-success">Generator</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/image-tools/qr-code-generator.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Tools -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="text" data-tags="word counter text analysis">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-font"></i>
+                            </div>
+                            <h5 class="card-title">Word Counter</h5>
+                            <p class="card-text">Count words, characters, paragraphs, and analyze text statistics in real-time.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-info">Text</span>
+                                <span class="badge badge-warning">Analysis</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/text-tools/word-counter.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="text" data-tags="case converter uppercase lowercase">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-text-height"></i>
+                            </div>
+                            <h5 class="card-title">Case Converter</h5>
+                            <p class="card-text">Convert text to various cases: uppercase, lowercase, title, camel, snake, and more.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-info">Text</span>
+                                <span class="badge badge-secondary">Converter</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/text-tools/case-converter.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="text" data-tags="url encoder decoder encode decode">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <h5 class="card-title">URL Encoder & Decoder</h5>
+                            <p class="card-text">Encode and decode URLs with batch processing and validation features.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-info">Text</span>
+                                <span class="badge badge-secondary">Encoder</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/text-tools/url-encoder-decoder.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="text" data-tags="base64 encoder decoder encode decode">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h5 class="card-title">Base64 Encoder & Decoder</h5>
+                            <p class="card-text">Encode and decode text and files to/from Base64 format with file support.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-info">Text</span>
+                                <span class="badge badge-secondary">Encoder</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/text-tools/base64-encoder-decoder.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="text" data-tags="hash generator md5 sha256 checksum">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-fingerprint"></i>
+                            </div>
+                            <h5 class="card-title">Hash Generator</h5>
+                            <p class="card-text">Generate MD5, SHA-1, SHA-256, SHA-512 hashes for text and files with comparison.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-info">Text</span>
+                                <span class="badge badge-danger">Security</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/text-tools/hash-generator.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Math Calculators -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="math" data-tags="percentage calculator math">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <h5 class="card-title">Percentage Calculator</h5>
+                            <p class="card-text">Calculate percentages, percentage changes, and percentage of numbers.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-success">Math</span>
+                                <span class="badge badge-warning">Calculator</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/math-calculators/percentage-calculator.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="math" data-tags="bmi calculator health weight">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <h5 class="card-title">BMI Calculator</h5>
+                            <p class="card-text">Calculate Body Mass Index with metric/imperial units and health recommendations.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-success">Math</span>
+                                <span class="badge badge-info">Health</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/math-calculators/bmi-calculator.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit Converters -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="unit" data-tags="length converter meter feet inch">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-ruler"></i>
+                            </div>
+                            <h5 class="card-title">Length Converter</h5>
+                            <p class="card-text">Convert between metric and imperial length units with real-time conversion table.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-warning">Unit</span>
+                                <span class="badge badge-secondary">Converter</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/unit-converters/length-converter.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="unit" data-tags="temperature converter celsius fahrenheit kelvin">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <h5 class="card-title">Temperature Converter</h5>
+                            <p class="card-text">Convert temperatures between Celsius, Fahrenheit, Kelvin, and Rankine.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-warning">Unit</span>
+                                <span class="badge badge-secondary">Converter</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/unit-converters/temperature-converter.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer Tools -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="developer" data-tags="json formatter validator minify">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h5 class="card-title">JSON Formatter</h5>
+                            <p class="card-text">Format, validate, and minify JSON with syntax highlighting and error detection.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-dark">Developer</span>
+                                <span class="badge badge-info">Formatter</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/developer-tools/json-formatter.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Tools -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="security" data-tags="password generator secure random">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <h5 class="card-title">Password Generator</h5>
+                            <p class="card-text">Generate secure passwords with customizable options and strength meter.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-danger">Security</span>
+                                <span class="badge badge-success">Generator</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/security-encryption-tools/password-generator.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Tools -->
+                <div class="col-md-6 col-lg-4 mb-4 tool-item" data-category="color" data-tags="color picker hex rgb hsl">
+                    <div class="card tool-card h-100">
+                        <div class="card-body">
+                            <div class="tool-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h5 class="card-title">Color Picker</h5>
+                            <p class="card-text">Advanced color picker with HEX, RGB, HSL, HSV formats and palette generation.</p>
+                            <div class="tool-tags">
+                                <span class="badge badge-primary">Color</span>
+                                <span class="badge badge-info">Design</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/tools/color-tools/color-picker.html" class="btn btn-primary btn-sm">Use Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div id="noResults" class="text-center mt-5" style="display: none;">
+                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                <h4>No tools found</h4>
+                <p class="text-muted">Try adjusting your search or filter criteria</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2>Why Choose MultiTools?</h2>
+                <p>Built with modern web technologies for the best user experience</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Lightning Fast</h4>
+                        <p>All tools run locally in your browser for instant results without server delays.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Privacy First</h4>
+                        <p>Your data never leaves your device. All processing happens locally for maximum privacy.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Mobile Friendly</h4>
+                        <p>Responsive design ensures all tools work perfectly on desktop, tablet, and mobile devices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/js/common.js"></script>
+
+    <script>
+        // Search and filter functionality
+        function filterTools() {
+            const searchTerm = document.getElementById('heroSearch').value.toLowerCase();
+            const selectedCategory = document.querySelector('input[name="category"]:checked').value;
+            const toolItems = document.querySelectorAll('.tool-item');
+            let visibleCount = 0;
+
+            toolItems.forEach(item => {
+                const title = item.querySelector('.card-title').textContent.toLowerCase();
+                const description = item.querySelector('.card-text').textContent.toLowerCase();
+                const tags = item.dataset.tags.toLowerCase();
+                const category = item.dataset.category;
+
+                const matchesSearch = !searchTerm || 
+                    title.includes(searchTerm) || 
+                    description.includes(searchTerm) || 
+                    tags.includes(searchTerm);
+
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Event listeners
+        document.getElementById('heroSearch').addEventListener('input', filterTools);
+        
+        document.querySelectorAll('input[name="category"]').forEach(radio => {
+            radio.addEventListener('change', filterTools);
+        });
+
+        // Initialize
+        filterTools();
+    </script>
+</body>
+</html>
+
